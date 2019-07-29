@@ -1,0 +1,27 @@
+.modal-dialog
+  .modal-content
+    = simple_form_for @item do |f|
+      .modal-header
+        %button.close{ type: :button, data: { dismiss: :modal } }
+          %span &times;
+        %h4.modal-title Creating item
+      .modal-body
+        = f.input :name
+        = f.input :code
+        = f.input :description
+        = f.association :colour
+        = f.input :costume
+        = f.input :item_image_file, as: :file
+        = f.hidden_field :item_image_file_cache
+        %label Category
+        = f.collection_select :category_id, Category.order(:name), :id, :name, { prompt: 'Please select' }
+
+        %br
+        %br
+        %label Sub-Category
+        = f.grouped_collection_select :subcategory_id, Category.order(:name), :subcategories, :name, :id, :name, { prompt: 'Please select' }
+
+      .modal-footer
+        .pull-left
+          = dismiss_modal_button
+        = f.button :submit, class: 'ajax-modal btn btn-success'

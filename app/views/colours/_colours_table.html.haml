@@ -1,0 +1,5 @@
+- @colours.each do |colour|
+  %tr.bg-info
+    %td= colour.name
+    %td= link_to 'Edit', edit_colour_path(colour), class: 'ajax-modal btn btn-warning'
+    %td= link_to 'Remove', colour, method: :delete, data: { confirm: 'Are you sure?, This action will delete all associated items and loans of this colour.' }, class: 'btn btn-danger'

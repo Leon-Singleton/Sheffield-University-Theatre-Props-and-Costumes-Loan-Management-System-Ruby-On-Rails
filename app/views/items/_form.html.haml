@@ -1,0 +1,14 @@
+= simple_form_for(@item) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :code
+    = f.input :description
+    = f.association :colour
+    = f.input :costume
+    = f.association :category
+    = f.association :subcategory
+
+  .form-actions
+    = f.button :submit

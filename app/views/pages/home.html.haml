@@ -1,0 +1,26 @@
+- content_for :title, "Home"
+
+.page-header
+  %h1 Welcome to the Theatre Workshop
+
+%p.lead About
+
+%p The Theatre Workshop is the hub of work for the Theatre department and over the course of a normal day our auditorium sees teaching, rehearsals and events. The catalogue shows all items available by department for productions.
+
+.container
+  .row
+    %h2 New In
+    .table-responsive
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+          %th Name
+          %th Description
+          %th
+          %th
+          - if can?(:edit, Category)
+            %th
+
+      %tbody#pages_table
+        = render 'pages_table'

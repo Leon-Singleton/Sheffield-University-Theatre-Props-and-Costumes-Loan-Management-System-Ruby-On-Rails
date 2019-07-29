@@ -1,0 +1,53 @@
+- if can?(:edit, Category)
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Loans
+    .panel-body
+
+    %h4 Search By:
+    = simple_form_for :search, url: search_loans_path, method: :post do |f|
+      .row
+        .col-sm-6
+          = f.input :name_of_loanee
+        .col-sm-6
+          = f.input :name_of_item
+
+      .row
+        .col-sm-2
+          = f.input :Overdue?, as: :boolean, checked_value: true, unchecked_value: false
+        .col-sm-2
+          = f.input :Requested_return?, as: :boolean, checked_value: true, unchecked_value: false
+        .col-sm-2
+        = f.submit 'Search', class: 'btn btn-primary', id: 'search-button'
+        = link_to 'Reset', loans_path
+
+    = simple_form_for (:returned),  method: :post, url: returned_loans_path do |g|
+      = g.submit 'Return Selected', class: 'ajax-modal btn btn-success'
+      .row
+        %br
+      .table-responsive
+        %table.table.table-striped
+          %thead
+            %tr.bg-primary
+              %th Item
+              %th Loan Date
+              %th Due Date
+              %th Loanee
+              %th
+              %th Returned?
+          %tbody
+
+            - @loans.each do |loan|
+              %tr.bg-info
+                %td= loan.item.name
+                %td= loan.date_from
+                %td= loan.date_until
+
+                - if can?(:edit, Category)
+                  %td= link_to 'View', View_User_loan_path(loan.user_id), class: 'ajax-modal btn btn-info'
+                - if can?(:edit, Category)
+                  %td= link_to 'Edit', edit_loan_path(loan.id), class: 'ajax-modal btn btn-primary'
+                - if can?(:edit, Category)
+                  %td= check_box_tag "loan_ids[]", loan.id
+- else
+  = render 'error_403'

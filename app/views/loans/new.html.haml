@@ -1,0 +1,42 @@
+.modal-dialog
+  .modal-content
+    = simple_form_for(@loan) do |f|
+      .modal-header
+        %button.close{ type: :button, data: { dismiss: :modal } }
+          %span &times;
+        %h4.modal-title Loan Item
+      .modal-body
+        %p
+          %b Item name:
+          = @item.name
+        %p
+          %b Image:
+          .imcontainer
+            = image_tag show_image_item_path(@item)
+        %p
+          %b Item code:
+          = @item.code
+        %p
+          %b Description:
+          = @item.description
+        %p
+          %b Category:
+          = @item.category.name
+        %p
+          %b Sub-Category:
+          = @item.subcategory.name
+        %p
+          %b Colour:
+          = @item.colour.name
+
+        = f.input :item_id, :as => :hidden, :input_html => {:value => @item.id}
+        = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
+        = f.input :date_from
+        = f.input :date_until
+        = f.input :returned, :as => :hidden, :input_html => {:value => false}
+        = f.input :request, :as => :hidden, :input_html => {:value => false}
+
+      .modal-footer
+        .pull-left
+          = dismiss_modal_button
+        = f.button :submit, class: 'ajax-modal btn btn-success'

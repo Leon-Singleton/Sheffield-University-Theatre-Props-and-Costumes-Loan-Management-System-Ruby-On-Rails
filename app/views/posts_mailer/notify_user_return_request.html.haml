@@ -1,0 +1,9 @@
+%p Dear #{@user.givenname} #{@user.sn},
+%p
+%p Your return request has been successfully sent to an admin for the following items:
+- @loans.each do |loan|
+  %p #{loan.item.name}
+%p
+%p Thank you for using our system.
+%p
+%p Sheffield University Theatre Workshop

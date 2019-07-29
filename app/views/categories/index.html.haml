@@ -1,0 +1,19 @@
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title Categories
+  .panel-body
+
+    = link_to 'New Category', new_category_path, class: 'ajax-modal btn btn-success'
+    = link_to 'New Sub-Category', new_subcategory_path, class: 'ajax-modal btn btn-success'
+
+  .table-responsive
+    %table.table.table-striped
+      %thead
+        %tr.bg-primary
+          %th Category
+          %th
+          %th
+          %th
+
+      %tbody#items_table
+        = render 'categories_table'

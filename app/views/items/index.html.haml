@@ -1,0 +1,40 @@
+.panel.panel-default.bg-warning
+  .panel-heading
+    %h3.panel-title Catalogue
+  .panel-body
+
+    %h4 Search By:
+    = simple_form_for :search, url: search_items_path, method: :post do |f|
+      = f.input :name
+
+      %label Select a Category
+      = f.collection_select :category_id, Category.order(:name), :id, :name, { prompt: 'Please select' }
+      %label Select a Sub-Category
+      = f.grouped_collection_select :subcategory_id, Category.order(:name), :subcategories, :name, :id, :name, { prompt: 'Please select' }
+      %label Select a Colour
+      = f.collection_select :colour_id, Colour.order(:name), :id, :name, { prompt: 'Please select' }
+
+      = f.submit 'Search', class: 'btn btn-primary', id: 'search-button'
+      = link_to 'Reset', items_path
+    %ul
+    - if can?(:edit, Category)
+      = link_to 'New Item', new_item_path, class: 'ajax-modal btn btn-success'
+
+  .table-responsive
+    %table.table.table-striped
+      %thead
+        %tr.bg-primary
+          %th Name
+          %th Code
+          %th Description
+          %th Category
+          %th Sub-Category
+          %th Colour
+          %th
+          %th
+          - if can?(:edit, Category)
+            %th
+            %th
+
+      %tbody#items_table
+        = render 'items_table'

@@ -1,0 +1,23 @@
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title Statistics
+  .panel-body
+
+
+
+    = simple_form_for :statistics do |f|
+      .modal-header
+        %h4.modal-title Loan categories over time period
+      .modal-body
+        =  pie_chart @loanData, id: "loanChart", width: "500px", height: "500px"
+        = f.input :datefrom, label: 'Date from', as: :date
+        = f.input :datetil, label: 'Date till', as: :date
+
+      .modal-header
+        %h4.modal-title Distribution of sub categories for selected category
+      .modal-body
+
+        =  pie_chart @categoryData, id: "piecategory", width: "500px", height: "500px"
+        = f.collection_select :category_id, Category.order(:name), :id, :name, { prompt: 'Please select' }
+      .modal-footer
+        = f.button :submit,'Save filter', class: 'ajax-modal btn btn-success'

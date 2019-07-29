@@ -1,0 +1,11 @@
+= simple_form_for(@loan) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :item_id, :as => :hidden, :input_html => {:value => @item.id}
+    = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
+    = f.input :date_from
+    = f.input :date_until
+
+  .form-actions
+    = f.button :submit, class: "btn btn-success"

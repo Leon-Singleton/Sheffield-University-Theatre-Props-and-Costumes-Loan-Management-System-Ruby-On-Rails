@@ -1,0 +1,7 @@
+- @categories.each do |category|
+  %tr.bg-info
+    %td= category.name
+    -# %td= subcategory.name
+    %td= link_to 'Show', category_path(category), class: 'btn btn-info'
+    %td= link_to 'Edit', edit_category_path(category), class: 'ajax-modal btn btn-warning'
+    %td= link_to 'Remove', category, method: :delete, data: { confirm: 'Are you sure?, This action will delete all associated items, subcategories and loans of this category.' }, class: 'btn btn-danger'

@@ -1,0 +1,14 @@
+- @items.each do |item|
+  %tr.bg-info
+    %td= item.name
+    %td= item.code
+    %td= item.description
+    %td= item.category.name
+    %td= item.subcategory.name
+    %td= item.colour.name
+    %td= link_to 'Show', item, class: 'btn btn-info'
+    %td= link_to 'Loan', new_loan_path(:item => item.id), class: 'ajax-modal btn btn-success'
+    - if can?(:edit, Category)
+      %td= link_to 'Edit', edit_item_path(item), class: 'ajax-modal btn btn-warning'
+    - if can?(:edit, Category)
+      %td= link_to 'Remove', item, method: :delete, data: { confirm: 'Are you sure?, This action will delete all current loans and loan history for this item.' }, class: 'btn btn-danger'

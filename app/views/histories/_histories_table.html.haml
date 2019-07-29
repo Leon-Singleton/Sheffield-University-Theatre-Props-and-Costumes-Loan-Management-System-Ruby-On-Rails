@@ -1,0 +1,8 @@
+- @histories.each do |loan|
+  %tr.bg-info
+    %td= loan.item.name
+    %td= loan.date_from
+    %td= loan.date_until
+
+    - if can?(:edit, Category)
+      %td= link_to 'View', View_User_loan_path(loan.user_id), class: 'ajax-modal btn btn-info'

@@ -1,0 +1,125 @@
+!!!
+%html
+  %head
+    %title Theatre Workshop Catalogue - #{content_for(:title)}
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
+    %meta{ :'http-equiv' => 'X-UA-Compatible', content: 'IE=edge' }
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}
+    = stylesheet_link_tag    "application", media: :all
+    = javascript_include_tag "application"
+    = favicon_link_tag
+    = csrf_meta_tags
+
+  %body{ class: environment_notice_body_class }
+    = render 'layouts/environment_notice'
+    .flash-messages
+      - flash.each do |name, msg|
+        - next unless name == 'alert' || name == 'notice'
+        .alert.fade.in
+          .container
+            - if name == 'notice'
+              = fa_icon('check', class: 'flash-success')
+            - else
+              = fa_icon('warning', class: 'flash-error')
+            = msg
+            %a{ href: '#', title: 'Hide this message', data: { dismiss: :alert } } Dismiss
+
+
+    %noscript
+      .warning-page-cover
+        .alert.alert-info
+          %h2 Sorry, it appears that you are using a web browser without JavaScript which prevents us offering you a rich online experience.
+          %p Please enable JavaScript or use a different web browser, or alternatively contact the CiCS Helpdesk for assistance.
+
+    #wrap
+      %nav#main-nav.navbar.navbar-default.navbar-relative-top.navbar.navbar-light{:style => "background-color: #e3f2fd;"}
+        .container
+          %ul.nav.navbar-nav.navbar-left
+            .collapse.navbar-collapse
+              %img.navbar__avatar{:src => "http://www.dimen.org.uk/img/university-of-sheffield-logo-full.svg", :width => 115, :link_to => "http://www.sheffield.ac.uk"}
+
+          .navbar-header
+            %button.navbar-toggle{ data: { target: ".navbar-collapse", toggle: :collapse, type: :button } }
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+              = link_to :root, class: 'navbar-brand hidden-sm' do
+                Theatre Workshop Catalogue
+
+          .collapse.navbar-collapse
+            %ul.nav.navbar-nav
+              = navbar_link_to :root, title: "Go to the home page", identifier: :home do
+                = fa_icon 'home'
+                Home
+              = navbar_link_to items_path, title: "Go to the catalogue page", identifier: :catalogue_page do
+                = fa_icon 'book'
+                Catalogue
+              - if can?(:edit, Category)
+                %li.dropdown
+                  = link_to '#', data: { toggle: :dropdown }, class: 'dropdown-toggle', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false do
+                    = fa_icon 'columns', text: 'Loans'
+                    %b.caret
+                    %ul.dropdown-menu
+                      %li
+                        - if can?(:edit, Colour)
+                          = navbar_link_to loans_path, title: "Go to the loans page", identifier: :loans_page do
+                            = fa_icon 'columns'
+                            Loans
+                            = link_to histories_path, title: "Go to histories page", identifier: :hisories_page do
+                              = fa_icon 'history', text: 'Histories'
+                        - if cannot?(:edit, Colour)
+                          = link_to destroy_user_session_path, method: :delete, title: "Log out of the system" do
+                            = fa_icon 'sign-out', text: 'Log out'
+              - if can?(:edit, Category)
+                = navbar_link_to categories_path, title: "Go to the categories page", identifier: :categories_page do
+                  = fa_icon 'columns'
+                  Categories
+              - if can?(:edit, Colour)
+                = navbar_link_to colours_path, title: "Go to the colours page", identifier: :colours_page do
+                  = fa_icon 'paint-brush'
+                  Colours
+              - if can?(:edit, Category)
+                = navbar_link_to uploads_path, title: "Go to uploads page", identifier: :uploads do
+                  = fa_icon 'upload'
+                  Uploads
+              - if user_signed_in?
+                - if cannot?(:edit, Colour)
+                  = navbar_link_to myloans_path, title: "Go to the my loans page", identifier: :myloans_page do
+                    = fa_icon 'folder-open'
+                    My Loans
+
+            - if user_signed_in?
+              %ul.nav.navbar-nav.navbar-right
+                %li.dropdown
+                  = link_to '#', data: { toggle: :dropdown }, class: 'dropdown-toggle', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false do
+                    = fa_icon 'user', text: current_user.username
+                    %b.caret
+                    %ul.dropdown-menu
+                      %li
+                        - if can?(:edit, Colour)
+                          = navbar_link_to myloans_path, title: "Go to my loans page", identifier: :myloans_page do
+                            = fa_icon 'folder-open'
+                            My Loans
+                            = link_to :users, title: "Go to all users page" do
+                              = fa_icon 'users', text: 'Manage Users'
+                            = link_to destroy_user_session_path, method: :delete, title: "Log out of the system" do
+                              = fa_icon 'sign-out', text: 'Log out'
+                        - if cannot?(:edit, Colour)
+                          = link_to destroy_user_session_path, method: :delete, title: "Log out of the system" do
+                            = fa_icon 'sign-out', text: 'Log out'
+            - else
+              %ul.nav.navbar-nav.navbar-right
+                = navbar_link_to :user_session, title: "Go to the my login page", identifier: :myloans_page do
+                  = fa_icon 'sign-in'
+                  Sign In
+
+      #main-container.container
+
+        = yield
+
+    %footer#footer
+      .container
+        .col-md-16
+          &copy; #{Date.today.year}
+          = link_to 'Accessibility', accessibility_index_path
+          = link_to 'Contact Us', contactus_path

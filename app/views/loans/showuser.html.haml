@@ -1,0 +1,24 @@
+.modal-dialog
+  .modal-content
+    .modal-header
+      %button.close{ type: :button, data: { dismiss: :modal } }
+        %span &times;
+      %h4.modal-title View User
+    .modal-body
+      %p
+        %b First Name:
+        = @user.givenname
+      %p
+        %b Surname:
+        = @user.sn
+      %p
+        %b User Name:
+        = @user.username
+      %p
+        %b Email:
+        = @user.email
+
+    .modal-footer
+      .pull-left
+        = dismiss_modal_button
+      .pull-right

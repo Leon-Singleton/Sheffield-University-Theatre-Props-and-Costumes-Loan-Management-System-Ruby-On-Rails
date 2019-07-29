@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @Colour.name
+
+= link_to 'Edit', edit_colour_path(@colour)
+\|
+= link_to 'Back', colours_path

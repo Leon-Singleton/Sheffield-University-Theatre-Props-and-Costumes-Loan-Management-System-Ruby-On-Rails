@@ -1,0 +1,47 @@
+.container
+  .row
+    - if user_signed_in?
+      .col-sm-6
+        %h2 My Current Loans
+        = simple_form_for (:returnRequest), method: :post, url: returnRequest_loans_path do |f|
+          .table-responsive#loans_table
+            %table.table.table-striped
+              %thead
+                %tr.bg-primary
+                  %th Item
+                  %th Loan Date
+                  %th Due Date
+                  %th
+                  %th Return?
+                  %th
+
+              %tbody
+
+                - @loans.each do |loan|
+                  %tr.bg-info
+                    %td= loan.item.name
+                    %td= loan.date_from
+                    %td= loan.date_until
+                    %td= link_to 'Extend', extend_loan_path(loan.id), class: 'ajax-modal btn btn-primary'
+                    %td= check_box_tag "loan_ids[]", loan.id
+
+          = f.submit "Return Selected", class: 'ajax-modal btn btn-success'
+
+      .col-sm-6
+        %h2 My Current Reservations
+        .table-responsive#reservations_table
+          %table.table.table-striped
+            %thead
+              %tr.bg-primary
+                %th Item
+                %th Start Date
+                %th Due Date
+                %th
+
+            %tbody
+              - @reservations.each do |reservation|
+                %tr.bg-info
+                  %td= reservation.item.name
+                  %td= reservation.date_from
+                  %td= reservation.date_until
+                  %td= link_to 'Cancel', reservation, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'

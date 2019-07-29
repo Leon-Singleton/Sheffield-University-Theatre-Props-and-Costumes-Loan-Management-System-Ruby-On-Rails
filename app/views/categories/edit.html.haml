@@ -1,0 +1,13 @@
+.modal-dialog
+  .modal-content
+    = simple_form_for @category do |f|
+      .modal-header
+        %button.close{ type: :button, data: { dismiss: :modal } }
+          %span &times;
+        %h4.modal-title Editing Category
+      .modal-body
+        = f.input :name
+      .modal-footer
+        .pull-left
+          = dismiss_modal_button
+        = f.button :submit, class: 'ajax-modal btn btn-success'

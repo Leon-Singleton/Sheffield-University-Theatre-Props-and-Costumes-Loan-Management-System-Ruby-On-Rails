@@ -1,0 +1,17 @@
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title Colours
+  .panel-body
+
+    = link_to 'New Colour', new_colour_path, class: 'ajax-modal btn btn-success'
+
+  .table-responsive
+    %table.table.table-striped
+      %thead
+        %tr.bg-primary
+          %th Colour
+          %th
+          %th
+
+      %tbody#items_table
+        = render 'colours_table'

@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Category:
+  = @category.name
+
+.table-responsive
+  %table.table.table-striped
+    %thead
+      %tr.bg-primary
+        %th Sub-Category
+        %th
+        %th
+
+    %tbody#items_table
+      = render :partial =>'./subcategories/subcategories_table'
+
+= link_to 'Back', categories_path

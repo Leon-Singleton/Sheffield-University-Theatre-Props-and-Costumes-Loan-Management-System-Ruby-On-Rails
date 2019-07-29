@@ -1,0 +1,10 @@
+%p Dear Admin User,
+%p
+%p #{@user.givenname} #{@user.sn} has submitted a loan return request for the following items:
+- @loans.each do |loan|
+  %p #{loan.item.name}
+%p This item requires authorization from a member of the admin team in order for it to be removed from the student's account.
+%p
+%p Thank you for using our system.
+%p
+%p Sheffield University Theatre Workshop

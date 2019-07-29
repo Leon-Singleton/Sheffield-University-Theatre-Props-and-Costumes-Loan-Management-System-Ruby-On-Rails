@@ -1,0 +1,45 @@
+/*
+  *= require bootstrap_setup
+  *= require font-awesome
+  *= require select2
+  *= require select2-bootstrap
+  *= require layout
+  *= require forms
+  *= require epi_utilities
+  *= require warning_page
+  *= require custom_flash
+  *= require environment_notice
+
+  *= require bootstrap-datetimepicker
+*/
+@media (max-width: 1200px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin-top: 7.5px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .collapse.in{
+        display:block !important;
+    }
+}
+
+.imcontainer img{
+    max-width: 300px;
+    height: auto;
+
+}
